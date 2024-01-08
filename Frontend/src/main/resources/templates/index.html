@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>com.kotki.backend.Cat Database</title>
+    <link th:href="@{/style.css}" rel="stylesheet" />
+</head>
+<body>
+<h2>Cats:</h2>
+
+<div class="filter">
+<table>
+    <thead>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Action</th>
+    </thead>
+    <tbody>
+    <tr th:each="cat: ${cats}">
+        <td th:text="${cat.id}"></td>
+        <td th:text="${cat.name}"></td>
+        <td th:text="${cat.age}"></td>
+        <td>
+            <a th:href="@{'/editCat/' + ${cat.id}}" id="editcat">Edit</a>
+            <a th:href="@{'/deleteCat/' + ${cat.id}}" id="deletecat">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+<a th:href="@{'/addCat'}" id="addcat">Add new cat</a>
+</body>
+</html>

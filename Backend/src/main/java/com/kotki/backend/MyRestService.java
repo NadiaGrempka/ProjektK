@@ -1,15 +1,21 @@
-import org.springframework.stereotype.Component;
+package com.kotki.backend;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Logger;
 
-@Component
+@Service
 public class MyRestService {
 
     private final CatRepository catRepository;
-
+    private Logger logger = Logger.getLogger("My Rest Service");
+    @Autowired
     public MyRestService(CatRepository catRepository) {
+        logger.info("Cat Repository");
         this.catRepository = catRepository;
-        this.catRepository.save(new Cat("Kajaaaaa", 12));
+        this.catRepository.save(new Cat("Kaja", 12));
         this.catRepository.save(new Cat("Bubu", 9));
         this.catRepository.save(new Cat("Todd", 4));
         this.catRepository.save(new Cat("Pan Wąsek", 2));
@@ -38,6 +44,7 @@ public class MyRestService {
     }
     public void deleteCat(Cat delCat){ this.catRepository.delete(delCat);}
     public List<Cat> getAllCats(){
+        logger.info("getAllCats");
         return (List<Cat>) this.catRepository.findAll();
     }
     public List<Cat> filterByName(String search){

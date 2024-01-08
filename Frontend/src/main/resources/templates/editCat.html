@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<h2>Cat</h2>
+<form action="#" th:object="${cat}" th:action="@{'/editCat/' + ${cat.id} }" method="POST">
+    <input hidden th:field="*{id}" th:value="*{id}">
+    <p>Cat name: </p><input th:field="*{name}" id="name" th:value="*{name}" type="input" name="name" placeholder="enter cat name" required></br>
+    <p>Cat age: </p><input th:field="*{age}" id="age" th:value="*{age}" type="input" name="age" placeholder="choose age" required></br>
+    </br>
+    <button type="submit" id="confirm">Confirm</button>
+</form>
+
+
+</body>
+</html>

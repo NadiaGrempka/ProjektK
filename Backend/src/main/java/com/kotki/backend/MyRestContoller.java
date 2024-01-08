@@ -1,13 +1,17 @@
+package com.kotki.backend;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 public class MyRestContoller {
 
     private final MyRestService myRestService;
-    @GetMapping("/hello")
+    private Logger logger = Logger.getLogger("My Rest Controller");
+    @GetMapping("hello")
     public String hello(){
         return "Hello";
     }
@@ -17,12 +21,12 @@ public class MyRestContoller {
         this.myRestService = myRestService;
     }
 
-    @GetMapping("cat/{name}")
+    @GetMapping("cat/name/{name}")
     public Cat findName(@PathVariable("name") String name){
         return this.myRestService.getCatByName(name);
     }
 
-    @GetMapping("cat/{age}")
+    @GetMapping("cat/age/{age}")
     public Cat findAge(@PathVariable("age") int age){
         return this.myRestService.getCatByAge(age);
     }
@@ -36,11 +40,17 @@ public class MyRestContoller {
     public List<Cat> filterByName(@PathVariable("filterByName") String search){
         return this.myRestService.filterByName(search);
     }
+    @GetMapping("cat/viewAll")
+    public List<Cat> viewAllCats(){
+        logger.info("viewAllCats1");
+        return this.myRestService.getAllCats();
+    }
 
     //trzeba miec jeszcze post - tworzy nowe, put - update'uje, get(to juz jest), delete
 
     @PostMapping("cat/add") //if it does not exist - create, if exist do nothing
     public Cat addNewCat(@RequestBody Cat kitty){
+        System.out.println("Kitty" + kitty.getName());
         if (myRestService.getCatByName(kitty.getName())!=null){
             System.out.println("kotek z takim imieniem już istnieje");
         }else {
